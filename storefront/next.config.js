@@ -15,7 +15,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL?.replace('https://', ''),
+        hostname: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.replace(
+          "backend-production-90ae.up.railway.app",
+          ""
+        ),
       },
       {
         protocol: "https",
@@ -29,15 +32,31 @@ const nextConfig = {
         protocol: "https",
         hostname: "medusa-server-testing.s3.us-east-1.amazonaws.com",
       },
-      ...(process.env.NEXT_PUBLIC_MINIO_ENDPOINT ? [{
+      {
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_MINIO_ENDPOINT,
-      }] : []),
+        hostname: "lunecloud.fra1.digitaloceanspaces.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+      {
+        protocol: "http",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "backend-production-90ae.up.railway.app",
+      },
     ],
   },
   serverRuntimeConfig: {
-    port: process.env.PORT || 3000
-  }
+    port: process.env.PORT || 3000,
+  },
 }
 
 module.exports = nextConfig

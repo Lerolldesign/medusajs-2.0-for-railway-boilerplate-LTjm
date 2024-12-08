@@ -9,10 +9,10 @@ import { useIntersection } from "@lib/hooks/use-in-view"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
 
-import MobileActions from "./mobile-actions"
-import ProductPrice from "../product-price"
 import { addToCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
+import ProductPrice from "../product-price"
+import MobileActions from "./mobile-actions"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -21,12 +21,19 @@ type ProductActionsProps = {
 }
 
 const optionsAsKeymap = (variantOptions: any) => {
-  return variantOptions?.reduce((acc: Record<string, string | undefined>, varopt: any) => {
-    if (varopt.option && varopt.value !== null && varopt.value !== undefined) {
-      acc[varopt.option.title] = varopt.value
-    }
-    return acc
-  }, {})
+  return variantOptions?.reduce(
+    (acc: Record<string, string | undefined>, varopt: any) => {
+      if (
+        varopt.option &&
+        varopt.value !== null &&
+        varopt.value !== undefined
+      ) {
+        acc[varopt.option.title] = varopt.value
+      }
+      return acc
+    },
+    {}
+  )
 }
 
 export default function ProductActions({
@@ -139,15 +146,18 @@ export default function ProductActions({
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
           variant="primary"
-          className="w-full h-10"
+          className={`rounded-full px-6 py-4 noise font-bold text-[.95rem] transition-all duration-400 
+            ${!inStock ? "!bg-lune !text-white" : "bg-[#121212] text-creamy"} 
+            hover:translate-y-[8px] hover:text-creamy hover:rounded-full hover:bg-lune active:translate-x-[0px] 
+            active:translate-y-[0px]`}
           isLoading={isAdding}
           data-testid="add-product-button"
         >
           {!selectedVariant
-            ? "Select variant"
+            ? "Selectionner votre produit"
             : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
+            ? "Réédition ou sur mesure"
+            : "Ajouter au panier"}
         </Button>
         <MobileActions
           product={product}

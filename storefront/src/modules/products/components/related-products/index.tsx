@@ -1,7 +1,7 @@
-import Product from "../product-preview"
-import { getRegion } from "@lib/data/regions"
 import { getProductsList } from "@lib/data/products"
+import { getRegion } from "@lib/data/regions"
 import { HttpTypes } from "@medusajs/types"
+import Product from "../product-preview"
 
 type RelatedProductsProps = {
   product: HttpTypes.StoreProduct
@@ -23,7 +23,7 @@ export default async function RelatedProducts({
   const region = await getRegion(countryCode)
 
   if (!region) {
-  const queryParams: StoreProductParamsWithTags = {}
+    const queryParams: StoreProductParamsWithTags = {}
   }
 
   // edit this function to define your related products logic
@@ -59,14 +59,14 @@ export default async function RelatedProducts({
     <div className="product-page-constraint">
       <div className="flex flex-col items-center text-center mb-16">
         <span className="text-base-regular text-gray-600 mb-6">
-          Related products
+          CATÉGORIE SIMILAIRE
         </span>
-        <p className="text-2xl-regular text-ui-fg-base max-w-lg">
-          You might also want to check out these products.
+        <p className=" text-[#C87E53] font-lune text-[2.2rem]/[2.2rem]  xl:text-[4rem]/[4rem] max-w-xs   medium:max-w-lg">
+          Vous aimerez peut-être aussi !
         </p>
       </div>
 
-      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
+      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-3 gap-x-6 gap-y-8">
         {products.map((product) => (
           <li key={product.id}>
             {region && <Product region={region} product={product} />}

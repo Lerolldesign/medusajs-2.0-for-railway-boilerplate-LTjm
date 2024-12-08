@@ -1,0 +1,94 @@
+.header{
+  
+    position: fixed;
+    right: 10%;
+    top:6%;
+    z-index: 1000;
+
+ 
+
+    .button{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #C87E53;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .burger{
+        width: 100%;
+        &::after, &::before{
+            content: "";
+            display: block;
+            height: 1px;
+            width: 40%;
+            margin: auto;
+            background-color: white;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        &::after{
+            top: -5px;
+        }
+
+        &::before{
+            top: 5px;
+        }
+    }
+
+    .burgerActive{
+
+        &::after{
+            transform: rotate(45deg);
+            top: -1px;
+        }
+
+        &::before{
+            transform: rotate(-45deg);
+            top: 0px;
+        }
+        
+    }
+   
+}
+@media screen and (max-width: 1300px) {
+    .header {
+        padding: 5px;
+        right: 12%;
+        top:7%;
+    }
+    
+    .button{
+       max-width: 50px;
+       max-height: 50px;
+    }
+  }
+
+@media screen and (max-width: 1114px) {
+    .header {
+        padding: 5px;
+        right: 19%;
+        top:7%;
+    }
+    
+    .button{
+       max-width: 50px;
+       max-height: 50px;
+    }
+  }
+  @media screen and (max-width: 435px) {
+    .header {
+        padding: 5px;
+        right: 42%;
+        top:7%;
+    }
+    
+    .button{
+       max-width: 50px;
+       max-height: 50px;
+    }
+  }

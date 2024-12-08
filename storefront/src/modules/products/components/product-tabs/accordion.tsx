@@ -1,8 +1,10 @@
+/* eslint-disable react/display-name */
 import { Text, clx } from "@medusajs/ui"
+
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import React from "react"
 
-type AccordionItemProps = AccordionPrimitive.AccordionItemProps & {
+type AccordionItemProps = {
   title: string
   subtitle?: string
   description?: string
@@ -16,20 +18,20 @@ type AccordionItemProps = AccordionPrimitive.AccordionItemProps & {
   triggerable?: boolean
   children: React.ReactNode
 }
+type AccordionProps = React.RefAttributes<HTMLDivElement> & {
+  children: React.ReactNode
+}
 
-type AccordionProps =
-  | (AccordionPrimitive.AccordionSingleProps &
-      React.RefAttributes<HTMLDivElement>)
-  | (AccordionPrimitive.AccordionMultipleProps &
-      React.RefAttributes<HTMLDivElement>)
-
-const Accordion: React.FC<AccordionProps> & {
+const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
+  (props, ref) => {
+    return (
+      <AccordionPrimitive.Root {...props} ref={ref}>
+        {props.children}
+      </AccordionPrimitive.Root>
+    )
+  }
+) as unknown as React.FC<AccordionProps> & {
   Item: React.FC<AccordionItemProps>
-} = ({ children, ...props }) => {
-  return (
-    /* x@ts-expect-error */
-    <AccordionPrimitive.Root {...props}>{children}</AccordionPrimitive.Root>
-  )
 }
 
 const Item: React.FC<AccordionItemProps> = ({
@@ -37,7 +39,6 @@ const Item: React.FC<AccordionItemProps> = ({
   subtitle,
   description,
   children,
-  className,
   headingSize = "large",
   customTrigger = undefined,
   forceMountContent = undefined,
@@ -50,8 +51,7 @@ const Item: React.FC<AccordionItemProps> = ({
       {...props}
       className={clx(
         "border-grey-20 group border-t last:mb-0 last:border-b",
-        "py-3",
-        className
+        "py-3"
       )}
     >
       {/* x@ts-expect-error */}

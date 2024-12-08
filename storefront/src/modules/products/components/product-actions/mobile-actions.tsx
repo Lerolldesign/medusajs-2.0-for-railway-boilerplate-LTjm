@@ -7,8 +7,8 @@ import ChevronDown from "@modules/common/icons/chevron-down"
 import X from "@modules/common/icons/x"
 
 import { getProductPrice } from "@lib/util/get-product-price"
-import OptionSelect from "./option-select"
 import { HttpTypes } from "@medusajs/types"
+import OptionSelect from "./option-select"
 
 type MobileActionsProps = {
   product: HttpTypes.StoreProduct
@@ -52,7 +52,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
   return (
     <>
       <div
-        className={clx("lg:hidden inset-x-0 bottom-0 fixed", {
+        className={clx("z-50 lg:hidden inset-x-0 bottom-0 fixed", {
           "pointer-events-none": !show,
         })}
       >
@@ -71,42 +71,51 @@ const MobileActions: React.FC<MobileActionsProps> = ({
             data-testid="mobile-actions"
           >
             <div className="flex items-center gap-x-2">
-              <span data-testid="mobile-title">{product.title}</span>
-              <span>—</span>
-              {selectedPrice ? (
-                <div className="flex items-end gap-x-2 text-ui-fg-base">
-                  {selectedPrice.price_type === "sale" && (
-                    <p>
-                      <span className="line-through text-small-regular">
-                        {selectedPrice.original_price}
-                      </span>
-                    </p>
-                  )}
-                  <span
-                    className={clx({
-                      "text-ui-fg-interactive":
-                        selectedPrice.price_type === "sale",
-                    })}
-                  >
-                    {selectedPrice.calculated_price}
+              <div className=" flex flex-col items-center">
+                <span className="text-xs text-neutral-400 uppercase">
+                  configurer
+                </span>
+
+                <div className="flex gap-5">
+                  <span data-testid="mobile-title font-bold ">
+                    {product.title}
                   </span>
+
+                  <span className="hidden">—</span>
+                  {selectedPrice ? (
+                    <div className="flex items-end gap-x-2 text-ui-fg-base font-bold">
+                      {selectedPrice.price_type === "sale" && (
+                        <p>
+                          <span className="line-through text-small-regular">
+                            {selectedPrice.original_price}
+                          </span>
+                        </p>
+                      )}
+                      <span
+                        className={clx({
+                          "text-ui-fg-interactive":
+                            selectedPrice.price_type === "sale",
+                        })}
+                      >
+                        {selectedPrice.calculated_price}
+                      </span>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
-              ) : (
-                <div></div>
-              )}
+              </div>
             </div>
             <div className="grid grid-cols-2 w-full gap-x-4">
               <Button
                 onClick={open}
                 variant="secondary"
-                className="w-full"
+                className="w-full rounded-full"
                 data-testid="mobile-actions-button"
               >
                 <div className="flex items-center justify-between w-full">
                   <span>
-                    {variant
-                      ? Object.values(options).join(" / ")
-                      : "Select Options"}
+                    {variant ? Object.values(options).join(" / ") : "Options"}
                   </span>
                   <ChevronDown />
                 </div>
@@ -114,15 +123,22 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               <Button
                 onClick={handleAddToCart}
                 disabled={!inStock || !variant}
-                className="w-full"
+                className={`rounded-full px-5 py-2 noise font-bold text-[.75rem] transition-all duration-400 
+                  ${
+                    !inStock
+                      ? "!bg-lune !text-white"
+                      : "bg-[#121212] text-creamy"
+                  } 
+                  hover:translate-y-[8px] hover:text-creamy hover:rounded-full hover:bg-lune active:translate-x-[0px] 
+                  active:translate-y-[0px]`}
                 isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >
                 {!variant
-                  ? "Select variant"
+                  ? "Choisir une option"
                   : !inStock
-                  ? "Out of stock"
-                  : "Add to cart"}
+                  ? "Rupture de stock"
+                  : "Ajouter au panier"}
               </Button>
             </div>
           </div>
@@ -168,7 +184,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   </div>
                   <div className="bg-white px-6 py-12">
                     {(product.variants?.length ?? 0) > 1 && (
-                      <div className="flex flex-col gap-y-6">
+                      <div className="flex flex-col gap-y-6 rounded-full">
                         {(product.options || []).map((option) => {
                           return (
                             <div key={option.id}>

@@ -1,0 +1,185 @@
+.header {
+  padding: 30px;
+  position: fixed;
+  right: 12vw;
+  top: 4vh;
+  z-index: 1;
+
+  .button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #c87e53;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .burger {
+    width: 100%;
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      height: 1px;
+      width: 40%;
+      margin: auto;
+      background-color: white;
+      position: relative;
+      transition: transform 0.3s;
+    }
+
+    &::after {
+      top: -5px;
+    }
+
+    &::before {
+      top: 5px;
+    }
+  }
+
+  .burgerActive {
+    &::after {
+      transform: rotate(45deg);
+      top: -1px;
+    }
+
+    &::before {
+      transform: rotate(-45deg);
+      top: 0px;
+    }
+  }
+  // Responsive styles for tablet
+  @media (max-width: 1450px) {
+    padding: 20px;
+    right: 18vw;
+    top: 5vh;
+
+    .button {
+      width: 70px;
+      height: 70px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 35%;
+      }
+    }
+  }
+
+  // Responsive styles for tablet
+  @media (max-width: 1180px) {
+    padding: 20px;
+    right: 23vw;
+    top: 5vh;
+
+    .button {
+      width: 70px;
+      height: 70px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 35%;
+      }
+    }
+  }
+
+  // Responsive styles for tablet
+  @media (max-width: 1024px) {
+    padding: 20px;
+    right: 26vw;
+    top: 3vh;
+
+    .button {
+      width: 70px;
+      height: 70px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 35%;
+      }
+    }
+  }
+
+  // Responsive styles for mobile
+  @media (max-width: 912px) {
+    padding: 15px;
+    right: 29vw;
+    top: 4.5vh;
+
+    .button {
+      width: 60px;
+      height: 60px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 30%;
+      }
+    }
+  }
+
+  // Responsive styles for mobile
+  @media (max-width: 820px) {
+    padding: 15px;
+    right: 30vw;
+    top: 5vh;
+
+    .button {
+      width: 60px;
+      height: 60px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 30%;
+      }
+    }
+  }
+
+  // Responsive styles for mobile
+  @media (max-width: 768px) {
+    padding: 15px;
+    right: 35vw;
+    top: 5.5vh;
+
+    .button {
+      width: 60px;
+      height: 60px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 30%;
+      }
+    }
+  }
+
+  // Smaller mobile screens
+  @media (max-width: 480px) {
+    padding: 10px;
+    right: 33vw;
+    top: 4vh;
+
+    .button {
+      width: 50px;
+      height: 50px;
+    }
+
+    .burger {
+      &::after,
+      &::before {
+        width: 25%;
+      }
+    }
+  }
+}

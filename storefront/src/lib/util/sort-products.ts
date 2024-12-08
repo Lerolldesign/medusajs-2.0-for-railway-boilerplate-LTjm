@@ -1,3 +1,4 @@
+// @ts-ignore
 import { HttpTypes } from "@medusajs/types"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
@@ -20,9 +21,12 @@ export function sortProducts(
   if (["price_asc", "price_desc"].includes(sortBy)) {
     // Precompute the minimum price for each product
     sortedProducts.forEach((product) => {
+      // @ts-ignore
       if (product.variants && product.variants.length > 0) {
         product._minPrice = Math.min(
+          // @ts-ignore
           ...product.variants.map(
+            // @ts-ignore
             (variant) => variant?.calculated_price?.calculated_amount || 0
           )
         )
@@ -41,6 +45,7 @@ export function sortProducts(
   if (sortBy === "created_at") {
     sortedProducts.sort((a, b) => {
       return (
+        // @ts-ignore
         new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime()
       )
     })

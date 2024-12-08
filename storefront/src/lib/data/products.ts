@@ -1,9 +1,11 @@
 import { sdk } from "@lib/config"
+
+import { sortProducts } from "@lib/util/sort-products"
+// @ts-ignore
 import { HttpTypes } from "@medusajs/types"
+import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { cache } from "react"
 import { getRegion } from "./regions"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { sortProducts } from "@lib/util/sort-products"
 
 export const getProductsById = cache(async function ({
   ids,
@@ -21,23 +23,26 @@ export const getProductsById = cache(async function ({
       },
       { next: { tags: ["products"] } }
     )
-    .then(({ products }) => products)
+    .then(({ products }: { products: any }) => products)
 })
 
 export const getProductByHandle = cache(async function (
   handle: string,
   regionId: string
 ) {
-  return sdk.store.product
-    .list(
-      {
-        handle,
-        region_id: regionId,
-        fields: "*variants.calculated_price,+variants.inventory_quantity",
-      },
-      { next: { tags: ["products"] } }
-    )
-    .then(({ products }) => products[0])
+  return (
+    sdk.store.product
+      .list(
+        {
+          handle,
+          region_id: regionId,
+          fields: "*variants.calculated_price,+variants.inventory_quantity",
+        },
+        { next: { tags: ["products"] } }
+      )
+      // @ts-ignore
+      .then(({ products }) => products[0])
+  )
 })
 
 export const getProductsList = cache(async function ({
@@ -54,7 +59,7 @@ export const getProductsList = cache(async function ({
   queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
 }> {
   const limit = queryParams?.limit || 12
-  const validPageParam = Math.max(pageParam, 1);
+  const validPageParam = Math.max(pageParam, 1)
   const offset = (validPageParam - 1) * limit
   const region = await getRegion(countryCode)
 
@@ -64,29 +69,32 @@ export const getProductsList = cache(async function ({
       nextPage: null,
     }
   }
-  return sdk.store.product
-    .list(
-      {
-        limit,
-        offset,
-        region_id: region.id,
-        fields: "*variants.calculated_price",
-        ...queryParams,
-      },
-      { next: { tags: ["products"] } }
-    )
-    .then(({ products, count }) => {
-      const nextPage = count > offset + limit ? pageParam + 1 : null
-
-      return {
-        response: {
-          products,
-          count,
+  return (
+    sdk.store.product
+      .list(
+        {
+          limit,
+          offset,
+          region_id: region.id,
+          fields: "*variants.calculated_price",
+          ...queryParams,
         },
-        nextPage: nextPage,
-        queryParams,
-      }
-    })
+        { next: { tags: ["products"] } }
+      )
+      // @ts-ignore
+      .then(({ products, count }) => {
+        const nextPage = count > offset + limit ? pageParam + 1 : null
+
+        return {
+          response: {
+            products,
+            count,
+          },
+          nextPage: nextPage,
+          queryParams,
+        }
+      })
+  )
 })
 
 /**

@@ -1,0 +1,65 @@
+.homeHeader{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   
+}
+
+.backgroundImage{
+    width: 100%;
+    height: 140vh;
+    position: absolute;
+    filter: brightness(60%);
+  
+    
+}
+
+.backgroundImage img{
+    object-fit: cover;
+   
+}
+
+.intro{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 35vh;
+  
+}
+
+.intro h1{
+    z-index: 3;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.introImage{
+    filter: brightness(40%);
+    width: 90vw;
+    height: 80vh;
+    position: absolute;
+   
+}
+
+.introImage img{
+    object-fit: cover;
+    object-position: top;
+    border-radius:5vw;
+}
+
+.description{
+    position: relative;
+    color: white;
+
+    text-transform: uppercase;
+    margin-top: 30vw;
+    margin-left: 10vw;
+}
+.description p{
+    margin: 0px;
+    position: relative;
+}
+
+
+

@@ -1,12 +1,12 @@
 "use client"
 
-import { Badge, Heading, Input, Label, Text, Tooltip } from "@medusajs/ui"
+import { Badge, Heading, Input, Label, Text } from "@medusajs/ui"
 import React from "react"
 import { useFormState } from "react-dom"
 
-import { applyPromotions, submitPromotionForm } from "@lib/data/cart"
+import { applyPromotions } from "@lib/data/cart"
+
 import { convertToLocale } from "@lib/util/money"
-import { InformationCircleSolid } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
 import Trash from "@modules/common/icons/trash"
 import ErrorMessage from "../error-message"
@@ -53,17 +53,17 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
   const [message, formAction] = useFormState(submitPromotionForm, null)
 
   return (
-    <div className="w-full bg-white flex flex-col">
+    <div className="w-full bg-white/20 rounded-[5vw] px-2 flex flex-col">
       <div className="txt-medium">
         <form action={(a) => addPromotionCode(a)} className="w-full mb-5">
           <Label className="flex gap-x-1 my-2 items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="txt-medium text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+              className="txt-medium !text-lune text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="add-discount-button"
             >
-              Add Promotion Code(s)
+              Code promo(s)
             </button>
 
             {/* <Tooltip content="You can add multiple promotion codes">
@@ -73,9 +73,9 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
 
           {isOpen && (
             <>
-              <div className="flex w-full gap-x-2">
+              <div className="flex w-full gap-x-2 items-center">
                 <Input
-                  className="size-full"
+                  className="size-full  py-2  pb-1 block w-full h-11 px-4 mt-0 bg-ui-bg-field border border-lune rounded-full bg-creamy noise appearance-none focus:outline-none focus:ring-0 focus:ring-lune hover:bg-ui-bg-field-hover"
                   id="promotion-input"
                   name="code"
                   type="text"
@@ -85,8 +85,9 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                 <SubmitButton
                   variant="secondary"
                   data-testid="discount-apply-button"
+                  className="rounded-full bg-browny text-creamy border-browny border hover:bg-creamy hover:text-lune "
                 >
-                  Apply
+                  Appliquer
                 </SubmitButton>
               </div>
 
@@ -102,7 +103,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
           <div className="w-full flex items-center">
             <div className="flex flex-col w-full">
               <Heading className="txt-medium mb-2">
-                Promotion(s) applied:
+                Promotion(s) appliquée:
               </Heading>
 
               {promotions.map((promotion) => {
@@ -157,9 +158,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                         data-testid="remove-discount-button"
                       >
                         <Trash size={14} />
-                        <span className="sr-only">
-                          Remove discount code from order
-                        </span>
+                        <span className="sr-only">Retirer le code</span>
                       </button>
                     )}
                   </div>
@@ -174,3 +173,6 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
 }
 
 export default DiscountCode
+function submitPromotionForm(state: null): Promise<null> | null {
+  throw new Error("Function not implemented.")
+}

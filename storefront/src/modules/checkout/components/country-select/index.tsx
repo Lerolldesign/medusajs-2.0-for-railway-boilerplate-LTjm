@@ -1,9 +1,9 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
 
+import { HttpTypes } from "@medusajs/types"
 import NativeSelect, {
   NativeSelectProps,
 } from "@modules/common/components/native-select"
-import { HttpTypes } from "@medusajs/types"
 
 const CountrySelect = forwardRef<
   HTMLSelectElement,
@@ -34,6 +34,7 @@ const CountrySelect = forwardRef<
       ref={innerRef}
       placeholder={placeholder}
       defaultValue={defaultValue}
+      className="rounded-full bg-creamy/30"
       {...props}
     >
       {countryOptions?.map(({ value, label }, index) => (

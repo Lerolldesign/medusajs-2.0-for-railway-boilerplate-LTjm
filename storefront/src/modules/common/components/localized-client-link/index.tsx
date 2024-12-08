@@ -14,7 +14,7 @@ const LocalizedClientLink = ({
   ...props
 }: {
   children?: React.ReactNode
-  href: string
+  href?: string
   className?: string
   onClick?: () => void
   passHref?: true
